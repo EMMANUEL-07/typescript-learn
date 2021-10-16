@@ -1,17 +1,40 @@
-class Department {
-   name:string;
+// type addFn = (a:number, b: number) => number;
+interface addFn {
+   (a: number, b: number): number;
+}
 
-   constructor(n: string) {
+interface Named {
+   readonly name?: string;
+   outputName?: string
+}
+
+interface Greetable extends Named {
+   greet(phrase: string): void
+}
+
+class Person implements Greetable {
+   name?: string;
+   age = 30
+
+   constructor(n?: string) {
       this.name = n
    }
 
-   describe(this:Department) {
-      console.log('Department: '+ this.name )      
+   greet(phrase: string) {
+      if (this.name) {
+         console.log(phrase + ' ' + this.name)
+      }
+      else {
+         console.log("Hi")
+      }
    }
 }
 
-const accounting = new Department('Accounting');
+let user1: Greetable;
+let user2: Person;
 
-console.log(accounting)
+user1 = new Person('Max')
+user2 = new Person()
 
-accounting.describe()
+user1.greet('Hi there, I am')
+user2.greet('Hi there, I am')
